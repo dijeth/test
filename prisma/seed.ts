@@ -29,7 +29,7 @@ async function main() {
   for (let i = 0; i < 10; i++) {
     const startDate = faker.date.past({ years: 8 });
     const current = faker.datatype.boolean();
-    await prisma.profile.create({
+    const profile = await prisma.profile.create({
       data: {
         name: faker.person.fullName(),
         description: faker.person.jobTitle() + '. ' + faker.lorem.sentence(),
@@ -47,13 +47,6 @@ async function main() {
             responsibilities: faker.lorem.sentences(2),
           })),
         },
-        projects: {
-          create: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () => ({
-            name: faker.commerce.productName(),
-            description: faker.lorem.sentence(),
-            repository: `https://github.com/${faker.internet.username()}/${faker.lorem.slug(2)}`,
-          })),
-        },
         personalAccounts: {
           create: [
             { link: `https://github.com/${faker.internet.username()}` },
@@ -61,6 +54,19 @@ async function main() {
           ],
         },
       },
+      include: { companyProfiles: true },
+    });
+
+    await prisma.project.createMany({
+      data: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () => {
+        const companyProfile = faker.helpers.arrayElement(profile.companyProfiles);
+        return {
+          name: faker.commerce.productName(),
+          description: faker.lorem.sentence(),
+          repository: `https://github.com/${faker.internet.username()}/${faker.lorem.slug(2)}`,
+          companyProfileId: companyProfile.id,
+        };
+      }),
     });
   }
   console.log(`Seeded ${await prisma.profile.count()} profiles`);

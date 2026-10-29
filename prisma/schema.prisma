@@ -14,7 +14,6 @@ model Profile {
 
   skills           ProfileSkill[]
   companyProfiles  CompanyProfile[]
-  projects         Project[]
   personalAccounts PersonalAccount[]
 
   @@map("profiles")
@@ -47,6 +46,7 @@ model Company {
 }
 
 model CompanyProfile {
+  id               Int       @id @default(autoincrement())
   companyId        Int
   profileId        Int
   position         String
@@ -55,18 +55,18 @@ model CompanyProfile {
   responsibilities String?
   company          Company   @relation(fields: [companyId], references: [id])
   profile          Profile   @relation(fields: [profileId], references: [id])
+  projects         Project[]
 
-  @@id([companyId, profileId])
   @@map("company_profiles")
 }
 
 model Project {
-  id          Int     @id @default(autoincrement())
-  name        String
-  description String?
-  profileId   Int
-  profile     Profile @relation(fields: [profileId], references: [id])
-  repository  String?
+  id               Int            @id @default(autoincrement())
+  name             String
+  description      String?
+  repository       String?
+  companyProfileId Int
+  companyProfile   CompanyProfile @relation(fields: [companyProfileId], references: [id])
 
   @@map("projects")
 }

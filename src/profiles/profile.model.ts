@@ -1,7 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { CompanyProfile } from '../company-profiles/company-profile.model';
 import { PersonalAccount } from '../personal-accounts/personal-account.model';
-import { Project } from '../projects/project.model';
 import { Skill } from '../skills/skill.model';
 
 @ObjectType()
@@ -20,9 +19,6 @@ export class Profile {
 
   @Field(() => [CompanyProfile])
   companyProfiles?: CompanyProfile[];
-
-  @Field(() => [Project])
-  projects?: Project[];
 
   @Field(() => [PersonalAccount])
   personalAccounts?: PersonalAccount[];

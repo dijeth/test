@@ -1,5 +1,5 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { Profile } from '../profiles/profile.model';
+import { CompanyProfile } from '../company-profiles/company-profile.model';
 
 @ObjectType()
 export class Project {
@@ -16,8 +16,8 @@ export class Project {
   repository?: string | null;
 
   @Field(() => Int)
-  profileId: number;
+  companyProfileId: number;
 
-  @Field(() => Profile)
-  profile?: Profile;
+  @Field(() => CompanyProfile)
+  companyProfile: CompanyProfile;
 }

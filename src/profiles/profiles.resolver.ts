@@ -2,7 +2,6 @@ import { Args, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql
 import { PrismaService } from '../prisma/prisma.service';
 import { CompanyProfile } from '../company-profiles/company-profile.model';
 import { PersonalAccount } from '../personal-accounts/personal-account.model';
-import { Project } from '../projects/project.model';
 import { Skill } from '../skills/skill.model';
 import { Profile } from './profile.model';
 
@@ -34,11 +33,6 @@ export class ProfilesResolver {
       where: { profileId: profile.id },
       orderBy: { startDate: 'desc' },
     });
-  }
-
-  @ResolveField(() => [Project])
-  projects(@Parent() profile: Profile) {
-    return this.prisma.project.findMany({ where: { profileId: profile.id }, orderBy: { id: 'asc' } });
   }
 
   @ResolveField(() => [PersonalAccount])
