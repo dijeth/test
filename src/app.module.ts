@@ -3,6 +3,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { SkillsModule } from './skills/skills.module';
+import { CompaniesModule } from './companies/companies.module';
+import { CompanyProfilesModule } from './company-profiles/company-profiles.module';
+import { ProjectsModule } from './projects/projects.module';
+import { PersonalAccountsModule } from './personal-accounts/personal-accounts.module';
 
 @Module({
   imports: [
@@ -14,6 +19,11 @@ import { ProfilesModule } from './profiles/profiles.module';
     }),
     PrismaModule,
     ProfilesModule,
+    SkillsModule,
+    CompaniesModule,
+    CompanyProfilesModule,
+    ProjectsModule,
+    PersonalAccountsModule,
   ],
 })
 export class AppModule {}

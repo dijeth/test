@@ -12,5 +12,70 @@ model Profile {
   name        String
   description String?
 
+  skills           ProfileSkill[]
+  companyProfiles  CompanyProfile[]
+  projects         Project[]
+  personalAccounts PersonalAccount[]
+
   @@map("profiles")
+}
+
+model Skill {
+  id       Int            @id @default(autoincrement())
+  name     String
+  profiles ProfileSkill[]
+
+  @@map("skills")
+}
+
+model ProfileSkill {
+  profileId Int
+  skillId   Int
+  profile   Profile @relation(fields: [profileId], references: [id])
+  skill     Skill   @relation(fields: [skillId], references: [id])
+
+  @@id([profileId, skillId])
+  @@map("profile_skills")
+}
+
+model Company {
+  id              Int              @id @default(autoincrement())
+  name            String
+  companyProfiles CompanyProfile[]
+
+  @@map("companies")
+}
+
+model CompanyProfile {
+  companyId        Int
+  profileId        Int
+  position         String
+  startDate        DateTime
+  endDate          DateTime?
+  responsibilities String?
+  company          Company   @relation(fields: [companyId], references: [id])
+  profile          Profile   @relation(fields: [profileId], references: [id])
+
+  @@id([companyId, profileId])
+  @@map("company_profiles")
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  profileId   Int
+  profile     Profile @relation(fields: [profileId], references: [id])
+  repository  String?
+
+  @@map("projects")
+}
+
+model PersonalAccount {
+  id        Int     @id @default(autoincrement())
+  link      String
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id])
+
+  @@map("personal_accounts")
 }
