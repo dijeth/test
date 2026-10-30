@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigModule } from './config/config.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { ProfilesModule } from './profiles/profiles.module';
-import { SkillsModule } from './skills/skills.module';
-import { CompaniesModule } from './companies/companies.module';
-import { CompanyProfilesModule } from './company-profiles/company-profiles.module';
-import { ProjectsModule } from './projects/projects.module';
-import { PersonalAccountsModule } from './personal-accounts/personal-accounts.module';
+import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
+import { Module } from "@nestjs/common";
+import { GraphQLModule } from "@nestjs/graphql";
+import { CompaniesModule } from "./companies/companies.module";
+import { CompanyProfilesModule } from "./company-profiles/company-profiles.module";
+import { ConfigModule } from "./config/config.module";
+import { PersonalAccountsModule } from "./personal-accounts/personal-accounts.module";
+import { PrismaModule } from "./prisma/prisma.module";
+import { ProfilesModule } from "./profiles/profiles.module";
+import { ProjectsModule } from "./projects/projects.module";
+import { SkillsModule } from "./skills/skills.module";
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { PersonalAccountsModule } from './personal-accounts/personal-accounts.mo
       autoSchemaFile: true,
       sortSchema: true,
       introspection: true,
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
     }),
     PrismaModule,
     ProfilesModule,
