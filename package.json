@@ -28,6 +28,7 @@
     "@nestjs/graphql": "^13.4.5",
     "@nestjs/platform-express": "^11.2.8",
     "@prisma/client": "^6.19.3",
+    "dataloader": "^2.2.3",
     "dotenv": "^18.0.9",
     "graphql": "^16.14.2",
     "reflect-metadata": "^0.2.2",
