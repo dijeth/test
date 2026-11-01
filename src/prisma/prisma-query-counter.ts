@@ -7,7 +7,6 @@ export class PrismaQueryCounter {
 
   run<T>(fn: (store: { count: number }) => T): T {
     return this.als.run({ count: 0 }, () => {
-      console.log(this.als.getStore());
       return fn(this.als.getStore()!);
     });
   }
