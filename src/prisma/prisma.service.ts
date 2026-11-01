@@ -1,19 +1,27 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '../config/config.service';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Prisma, PrismaClient } from '../generated/prisma/client';
 
 type LogLevel = Prisma.LogLevel;
+type PrismaOptions = Prisma.PrismaClientOptions & {
+  log: { emit: 'event'; level: LogLevel }[];
+};
 
 @Injectable()
 export class PrismaService
-  extends PrismaClient<Prisma.PrismaClientOptions, LogLevel>
+  extends PrismaClient<PrismaOptions, LogLevel>
   implements OnModuleInit, OnModuleDestroy
 {
   private readonly logger = new Logger('Prisma');
 
   constructor(config: ConfigService) {
     const levels = config.get('PRISMA_LOG');
-    super({ log: levels.map((level) => ({ emit: 'event', level })) });
+    const log = levels.map((level) => ({ emit: 'event' as const, level }));
+    super({
+      adapter: new PrismaPg({ connectionString: config.get('DATABASE_URL') }),
+      log,
+    });
 
     if (levels.includes('query')) {
       this.$on('query', (e) =>

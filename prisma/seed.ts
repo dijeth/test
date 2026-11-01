@@ -1,7 +1,13 @@
+import 'dotenv/config';
 import { faker } from "@faker-js/faker";
-import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../src/generated/prisma/client';
+import { validateEnv } from '../src/config/env.schema';
 
-const prisma = new PrismaClient();
+const config = validateEnv(process.env);
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: config.DATABASE_URL }),
+});
 
 async function main() {
   faker.seed(42);
