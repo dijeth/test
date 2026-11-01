@@ -1,7 +1,7 @@
 import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
-import { Company } from '../companies/company.model';
-import { Profile } from '../profiles/profile.model';
-import { Project } from '../projects/project.model';
+import { Company } from '@/companies/company.model';
+import { Profile } from '@/profiles/profile.model';
+import { Project } from '@/projects/project.model';
 
 @ObjectType()
 export class CompanyProfile {

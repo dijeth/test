@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { CompanyProfile } from '../company-profiles/company-profile.model';
-import { PersonalAccount } from '../personal-accounts/personal-account.model';
-import { Skill } from '../skills/skill.model';
+import { CompanyProfile } from '@/company-profiles/company-profile.model';
+import { PersonalAccount } from '@/personal-accounts/personal-account.model';
+import { Skill } from '@/skills/skill.model';
 
 @ObjectType()
 export class Profile {

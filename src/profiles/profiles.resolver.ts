@@ -8,11 +8,11 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { CompanyProfile } from "../company-profiles/company-profile.model";
-import { PersonalAccount } from "../personal-accounts/personal-account.model";
-import { PrismaService } from "../prisma/prisma.service";
-import { Skill } from "../skills/skill.model";
-import { Profile } from "./profile.model";
+import { CompanyProfile } from "@/company-profiles/company-profile.model";
+import { PersonalAccount } from "@/personal-accounts/personal-account.model";
+import { PrismaService } from "@/prisma/prisma.service";
+import { Skill } from "@/skills/skill.model";
+import { Profile } from "@/profiles/profile.model";
 
 // Request scope: DataLoader's cache and batches must not outlive a single request.
 @Injectable({ scope: Scope.REQUEST })

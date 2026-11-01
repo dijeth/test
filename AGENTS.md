@@ -13,7 +13,7 @@ NestJS + Prisma + GraphQL (code-first, Apollo) + PostgreSQL. Read-only API: only
 GraphQL sandbox: http://localhost:3000/graphql (port from `PORT`).
 
 ## Dependencies
-Versions are pinned deliberately (Nest 11, @nestjs/graphql 13, Apollo Server 5, TypeScript 5, Prisma 7).
+Versions are pinned deliberately (Nest 12, @nestjs/graphql 14, Apollo Server 5, TypeScript 5, Prisma 7).
 Do not bump major versions: newer ones have peer-dependency conflicts. Apollo Server 5 needs `@as-integrations/express5`.
 Prisma 7 requires Node 20.19+, 22.12+, or 24+; use Node 24 (`.nvmrc`). Its client is generated into `src/generated/prisma`.
 

@@ -2,15 +2,15 @@ import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
-import { CompaniesModule } from "./companies/companies.module";
-import { CompanyProfilesModule } from "./company-profiles/company-profiles.module";
-import { ConfigModule } from "./config/config.module";
-import { QueryCounterMiddleware } from "./middlewares/query-counter/query-counter.middleware";
-import { PersonalAccountsModule } from "./personal-accounts/personal-accounts.module";
-import { PrismaModule } from "./prisma/prisma.module";
-import { ProfilesModule } from "./profiles/profiles.module";
-import { ProjectsModule } from "./projects/projects.module";
-import { SkillsModule } from "./skills/skills.module";
+import { CompaniesModule } from "@/companies/companies.module";
+import { CompanyProfilesModule } from "@/company-profiles/company-profiles.module";
+import { ConfigModule } from "@/config/config.module";
+import { QueryCounterMiddleware } from "@/middlewares/query-counter/query-counter.middleware";
+import { PersonalAccountsModule } from "@/personal-accounts/personal-accounts.module";
+import { PrismaModule } from "@/prisma/prisma.module";
+import { ProfilesModule } from "@/profiles/profiles.module";
+import { ProjectsModule } from "@/projects/projects.module";
+import { SkillsModule } from "@/skills/skills.module";
 
 @Module({
   imports: [

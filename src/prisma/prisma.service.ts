@@ -5,9 +5,9 @@ import {
   OnModuleInit,
 } from "@nestjs/common";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { ConfigService } from "../config/config.service";
-import { Prisma, PrismaClient } from "../generated/prisma/client";
-import { PrismaQueryCounter } from "./prisma-query-counter";
+import { ConfigService } from "@/config/config.service";
+import { Prisma, PrismaClient } from "@/generated/prisma/client";
+import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
 
 type LogLevel = Prisma.LogLevel;
 type PrismaOptions = Prisma.PrismaClientOptions & {

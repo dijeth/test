@@ -1,6 +1,6 @@
 import { Global, Module } from "@nestjs/common";
-import { PrismaQueryCounter } from "./prisma-query-counter";
-import { PrismaService } from "./prisma.service";
+import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
+import { PrismaService } from "@/prisma/prisma.service";
 
 @Global()
 @Module({

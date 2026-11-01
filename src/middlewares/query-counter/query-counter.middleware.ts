@@ -1,5 +1,5 @@
 import { Injectable, Logger, NestMiddleware } from "@nestjs/common";
-import { PrismaQueryCounter } from "../../prisma/prisma-query-counter";
+import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
 
 @Injectable()
 export class QueryCounterMiddleware implements NestMiddleware {

@@ -1,9 +1,9 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
-import { PrismaService } from '../prisma/prisma.service';
-import { Company } from '../companies/company.model';
-import { Profile } from '../profiles/profile.model';
-import { Project } from '../projects/project.model';
-import { CompanyProfile } from './company-profile.model';
+import { PrismaService } from '@/prisma/prisma.service';
+import { Company } from '@/companies/company.model';
+import { Profile } from '@/profiles/profile.model';
+import { Project } from '@/projects/project.model';
+import { CompanyProfile } from '@/company-profiles/company-profile.model';
 
 @Resolver(() => CompanyProfile)
 export class CompanyProfilesResolver {

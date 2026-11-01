@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AppConfig } from './env.schema';
+import { AppConfig } from '@/config/env.schema';
 
 export const APP_CONFIG = Symbol('APP_CONFIG');
 

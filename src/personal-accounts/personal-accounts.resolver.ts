@@ -1,7 +1,7 @@
 import { Args, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { PrismaService } from '../prisma/prisma.service';
-import { Profile } from '../profiles/profile.model';
-import { PersonalAccount } from './personal-account.model';
+import { PrismaService } from '@/prisma/prisma.service';
+import { Profile } from '@/profiles/profile.model';
+import { PersonalAccount } from '@/personal-accounts/personal-account.model';
 
 @Resolver(() => PersonalAccount)
 export class PersonalAccountsResolver {
