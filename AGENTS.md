@@ -6,6 +6,7 @@ NestJS + Prisma + GraphQL (code-first, Apollo) + SQLite (better-sqlite3 adapter)
 - `npm run dev` — apply migrations, run app in watch mode
 - `npm run db:migrate` — create/apply a migration after editing `prisma/schema.prisma`
 - `npm run db:seed` — wipe and refill tables with faker data
+- `npm run db:seed:resume` — add or refresh the resume profile without clearing other records
 - `npm run build` — compile (`nest build`)
 - No tests or linter are configured yet.
 
