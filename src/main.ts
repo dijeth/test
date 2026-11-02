@@ -8,8 +8,10 @@ async function bootstrap() {
   const { AppModule } = await import("@/app.module");
   const { ConfigService } = await import("@/config/config.service");
   const app = await NestFactory.create(AppModule);
-  const port = app.get(ConfigService).get("PORT");
-  await app.listen(port);
-  console.log(`GraphQL sandbox: http://localhost:${port}/graphql`);
+  const config = app.get(ConfigService);
+  const host = config.get("HOST");
+  const port = config.get("PORT");
+  await app.listen(port, host);
+  console.log(`GraphQL sandbox: http://${host}:${port}/graphql`);
 }
 bootstrap();

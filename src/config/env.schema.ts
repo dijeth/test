@@ -7,6 +7,7 @@ const envSchema = z.object({
     .string()
     .min(1)
     .refine((v) => v.startsWith('file:'), 'must be a file: URL'),
+  HOST: z.string().min(1).default('0.0.0.0'),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
   PRISMA_LOG: z
     .string()
