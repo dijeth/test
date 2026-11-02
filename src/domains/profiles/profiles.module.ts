@@ -1,5 +1,5 @@
-import { ProfilesDataloaderService } from "@/profiles/profiles-dataloader.service";
-import { ProfilesResolver } from "@/profiles/profiles.resolver";
+import { ProfilesDataloaderService } from "@/domains/profiles/profiles-dataloader.service";
+import { ProfilesResolver } from "@/domains/profiles/profiles.resolver";
 import { Module } from "@nestjs/common";
 
 @Module({

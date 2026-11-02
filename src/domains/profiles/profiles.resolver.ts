@@ -1,9 +1,9 @@
-import { CompanyProfile } from "@/company-profiles/company-profile.model";
-import { PersonalAccount } from "@/personal-accounts/personal-account.model";
+import { CompanyProfile } from "@/domains/company-profiles/company-profile.model";
+import { PersonalAccount } from "@/domains/personal-accounts/personal-account.model";
 import { PrismaService } from "@/prisma/prisma.service";
-import { Profile } from "@/profiles/profile.model";
-import { Project } from "@/projects/project.model";
-import { Skill } from "@/skills/skill.model";
+import { Profile } from "@/domains/profiles/profile.model";
+import { Project } from "@/domains/projects/project.model";
+import { Skill } from "@/domains/skills/skill.model";
 import { Injectable } from "@nestjs/common";
 import {
   Args,

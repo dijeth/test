@@ -1,11 +1,11 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
-import { CompaniesDataloaderService } from '@/companies/companies-dataloader.service';
-import { Company } from '@/companies/company.model';
-import { Profile } from '@/profiles/profile.model';
-import { ProfilesDataloaderService } from '@/profiles/profiles-dataloader.service';
-import { Project } from '@/projects/project.model';
-import { CompanyProfile } from '@/company-profiles/company-profile.model';
-import { CompanyProfilesDataloaderService } from '@/company-profiles/company-profiles-dataloader.service';
+import { CompaniesDataloaderService } from '@/domains/companies/companies-dataloader.service';
+import { Company } from '@/domains/companies/company.model';
+import { Profile } from '@/domains/profiles/profile.model';
+import { ProfilesDataloaderService } from '@/domains/profiles/profiles-dataloader.service';
+import { Project } from '@/domains/projects/project.model';
+import { CompanyProfile } from '@/domains/company-profiles/company-profile.model';
+import { CompanyProfilesDataloaderService } from '@/domains/company-profiles/company-profiles-dataloader.service';
 
 @Resolver(() => CompanyProfile)
 export class CompanyProfilesResolver {

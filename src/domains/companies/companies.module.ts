@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CompaniesDataloaderService } from '@/companies/companies-dataloader.service';
-import { CompaniesResolver } from '@/companies/companies.resolver';
+import { CompaniesDataloaderService } from '@/domains/companies/companies-dataloader.service';
+import { CompaniesResolver } from '@/domains/companies/companies.resolver';
 
 @Module({
   providers: [CompaniesResolver, CompaniesDataloaderService],

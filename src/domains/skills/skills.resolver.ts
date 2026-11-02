@@ -1,8 +1,8 @@
 import { Args, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { PrismaService } from '@/prisma/prisma.service';
-import { Profile } from '@/profiles/profile.model';
-import { Skill } from '@/skills/skill.model';
-import { SkillsDataloaderService } from '@/skills/skills-dataloader.service';
+import { Profile } from '@/domains/profiles/profile.model';
+import { Skill } from '@/domains/skills/skill.model';
+import { SkillsDataloaderService } from '@/domains/skills/skills-dataloader.service';
 
 @Resolver(() => Skill)
 export class SkillsResolver {
