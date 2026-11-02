@@ -1,5 +1,10 @@
-import { Injectable, Scope } from "@nestjs/common";
-import DataLoader from "dataloader";
+import { CompanyProfile } from "@/company-profiles/company-profile.model";
+import { PersonalAccount } from "@/personal-accounts/personal-account.model";
+import { PrismaService } from "@/prisma/prisma.service";
+import { Profile } from "@/profiles/profile.model";
+import { Project } from "@/projects/project.model";
+import { Skill } from "@/skills/skill.model";
+import { Injectable } from "@nestjs/common";
 import {
   Args,
   ID,
@@ -8,30 +13,15 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { CompanyProfile } from "@/company-profiles/company-profile.model";
-import { PersonalAccount } from "@/personal-accounts/personal-account.model";
-import { PrismaService } from "@/prisma/prisma.service";
-import { Skill } from "@/skills/skill.model";
-import { Profile } from "@/profiles/profile.model";
+import { ProfilesDataloaderService } from "./profiles-dataloader.service";
 
-// Request scope: DataLoader's cache and batches must not outlive a single request.
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 @Resolver(() => Profile)
 export class ProfilesResolver {
-  private readonly skillsLoader = new DataLoader<number, Skill[]>(
-    async (ids) => {
-      const rows = await this.prisma.profile.findMany({
-        where: { id: { in: [...ids] } },
-        select: { id: true, skills: { select: { skill: true } } },
-      });
-      const byId = new Map(
-        rows.map((r) => [r.id, r.skills.map(({ skill }) => skill)]),
-      );
-      return ids.map((id) => byId.get(id) ?? []);
-    },
-  );
-
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly dataloader: ProfilesDataloaderService,
+  ) {}
 
   @Query(() => [Profile])
   profiles() {
@@ -45,22 +35,21 @@ export class ProfilesResolver {
 
   @ResolveField(() => [Skill])
   skills(@Parent() profile: Profile) {
-    return this.skillsLoader.load(profile.id);
+    return this.dataloader.skills.load(profile.id);
   }
 
-  @ResolveField(() => [CompanyProfile])
+  @ResolveField(() => [CompanyProfile], { name: "experiences" })
   companyProfiles(@Parent() profile: Profile) {
-    return this.prisma.companyProfile.findMany({
-      where: { profileId: profile.id },
-      orderBy: { startDate: "desc" },
-    });
+    return this.dataloader.companyProfiles.load(profile.id);
   }
 
   @ResolveField(() => [PersonalAccount])
   personalAccounts(@Parent() profile: Profile) {
-    return this.prisma.personalAccount.findMany({
-      where: { profileId: profile.id },
-      orderBy: { id: "asc" },
-    });
+    return this.dataloader.personalAccounts.load(profile.id);
+  }
+
+  @ResolveField(() => [Project])
+  projects(@Parent() profile: Profile) {
+    return this.dataloader.projects.load(profile.id);
   }
 }
