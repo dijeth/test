@@ -4,7 +4,7 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from "@nestjs/common";
-import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { ConfigService } from "@/config/config.service";
 import { Prisma, PrismaClient } from "@/generated/prisma/client";
 import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
@@ -28,7 +28,7 @@ export class PrismaService
     const levels = config.get("PRISMA_LOG");
     const log = levels.map((level) => ({ emit: "event" as const, level }));
     super({
-      adapter: new PrismaPg({ connectionString: config.get("DATABASE_URL") }),
+      adapter: new PrismaBetterSqlite3({ url: config.get("DATABASE_URL") }),
       log,
     });
 

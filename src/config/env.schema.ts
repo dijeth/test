@@ -6,7 +6,7 @@ const envSchema = z.object({
   DATABASE_URL: z
     .string()
     .min(1)
-    .refine((v) => /^postgres(ql)?:\/\//.test(v), 'must be a postgresql:// URL'),
+    .refine((v) => v.startsWith('file:'), 'must be a file: URL'),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
   PRISMA_LOG: z
     .string()

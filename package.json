@@ -8,11 +8,9 @@
     "prestart": "prisma generate",
     "start:dev": "nest start --watch",
     "prestart:dev": "prisma generate",
-    "db:up": "docker compose up -d --wait",
-    "db:down": "docker compose down",
     "db:migrate": "prisma migrate dev && prisma generate",
     "db:seed": "prisma generate && ts-node -r tsconfig-paths/register prisma/seed.ts",
-    "dev": "npm run db:up && prisma migrate deploy && prisma generate && nest start --watch"
+    "dev": "prisma migrate deploy && prisma generate && nest start --watch"
   },
   "keywords": [],
   "author": "",
@@ -29,12 +27,11 @@
     "@nestjs/core": "^12.3.2",
     "@nestjs/graphql": "^14.1.0",
     "@nestjs/platform-express": "^12.3.2",
-    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/adapter-better-sqlite3": "^7.10.1",
     "@prisma/client": "^7.10.1",
     "dataloader": "^2.2.3",
     "dotenv": "^18.0.9",
     "graphql": "^16.14.2",
-    "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "tsconfig-paths": "^4.2.0",
@@ -47,5 +44,8 @@
     "prisma": "^7.10.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true
   }
 }

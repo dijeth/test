@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker";
-import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import "dotenv/config";
 import { validateEnv } from "../src/config/env.schema";
 import { PrismaClient } from "../src/generated/prisma/client";
 
 const config = validateEnv(process.env);
 const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: config.DATABASE_URL }),
+  adapter: new PrismaBetterSqlite3({ url: config.DATABASE_URL }),
 });
 
 async function main() {

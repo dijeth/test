@@ -1,10 +1,9 @@
 # AGENTS.md
 
-NestJS + Prisma + GraphQL (code-first, Apollo) + PostgreSQL. Read-only API: only queries, no mutations.
+NestJS + Prisma + GraphQL (code-first, Apollo) + SQLite (better-sqlite3 adapter). Read-only API: only queries, no mutations.
 
 ## Commands
-- `npm run dev` — start Postgres (docker), apply migrations, run app in watch mode
-- `npm run db:up` / `db:down` — start/stop the dev Postgres container
+- `npm run dev` — apply migrations, run app in watch mode
 - `npm run db:migrate` — create/apply a migration after editing `prisma/schema.prisma`
 - `npm run db:seed` — wipe and refill tables with faker data
 - `npm run build` — compile (`nest build`)
@@ -26,5 +25,5 @@ Prisma 7 requires Node 20.19+, 22.12+, or 24+; use Node 24 (`.nvmrc`). Its clien
 - GraphQL models are written by hand and mirror `schema.prisma`; keep them in sync.
 - Relations are resolved with `@ResolveField` (N+1 is accepted for now; use DataLoader if data grows).
 - Schema changes: edit `schema.prisma`, run `npm run db:migrate`, then update the models and `prisma/seed.ts`.
-- Prisma config and datasource URL are in `prisma.config.ts`; Prisma 7 requires the PostgreSQL driver adapter.
+- Prisma config and datasource URL are in `prisma.config.ts`; Prisma 7 requires a driver adapter (`@prisma/adapter-better-sqlite3`).
 - Prisma query logging is controlled by `PRISMA_LOG` (`query,info,warn,error`).
