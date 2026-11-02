@@ -1,3 +1,6 @@
+import { ConfigService } from "@/config/config.service";
+import { Prisma, PrismaClient } from "@/generated/prisma/client";
+import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
 import {
   Injectable,
   Logger,
@@ -5,14 +8,13 @@ import {
   OnModuleInit,
 } from "@nestjs/common";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import { ConfigService } from "@/config/config.service";
-import { Prisma, PrismaClient } from "@/generated/prisma/client";
-import { PrismaQueryCounter } from "@/prisma/prisma-query-counter";
 
 type LogLevel = Prisma.LogLevel;
 type PrismaOptions = Prisma.PrismaClientOptions & {
   log: { emit: "event"; level: LogLevel }[];
 };
+
+const QUERY_LOG_LEVEL: Prisma.LogLevel = "query";
 
 @Injectable()
 export class PrismaService
@@ -26,7 +28,10 @@ export class PrismaService
     private readonly queryCounter: PrismaQueryCounter,
   ) {
     const levels = config.get("PRISMA_LOG");
-    const log = levels.map((level) => ({ emit: "event" as const, level }));
+    const log = [QUERY_LOG_LEVEL, ...levels].map((level) => ({
+      emit: "event" as const,
+      level,
+    }));
     super({
       adapter: new PrismaBetterSqlite3({ url: config.get("DATABASE_URL") }),
       log,
