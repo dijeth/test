@@ -1,11 +1,15 @@
 import { Args, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { PrismaService } from '@/prisma/prisma.service';
+import { CompaniesDataloaderService } from '@/companies/companies-dataloader.service';
 import { CompanyProfile } from '@/company-profiles/company-profile.model';
 import { Company } from '@/companies/company.model';
 
 @Resolver(() => Company)
 export class CompaniesResolver {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly dataloader: CompaniesDataloaderService,
+  ) {}
 
   @Query(() => [Company])
   companies() {
@@ -19,6 +23,6 @@ export class CompaniesResolver {
 
   @ResolveField(() => [CompanyProfile])
   companyProfiles(@Parent() company: Company) {
-    return this.prisma.companyProfile.findMany({ where: { companyId: company.id } });
+    return this.dataloader.companyProfiles.load(company.id);
   }
 }

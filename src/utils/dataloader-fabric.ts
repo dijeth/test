@@ -1,5 +1,21 @@
 import DataLoader from "dataloader";
 
+export function createByIdLoader<Row extends { id: number }>(
+  loadRows: (ids: readonly number[]) => Promise<readonly Row[]>,
+): DataLoader<number, Row> {
+  return new DataLoader(async (ids) => {
+    const byId = new Map<number, Row>();
+
+    for (const row of await loadRows(ids)) {
+      byId.set(row.id, row);
+    }
+
+    return ids.map(
+      (id) => byId.get(id) ?? new Error(`Record with id ${id} not found`),
+    );
+  });
+}
+
 export function createGroupedLoader<Row, Item>(
   loadRows: (ids: readonly number[]) => Promise<readonly Row[]>,
   getId: (row: Row) => number,

@@ -1,11 +1,15 @@
 import type { CompanyProfile, Project } from "@/generated/prisma/client";
 import { PrismaService } from "@/prisma/prisma.service";
-import { createGroupedLoader } from "@/utils/dataloader-fabric";
+import { createByIdLoader, createGroupedLoader } from "@/utils/dataloader-fabric";
 import { Injectable, Scope } from "@nestjs/common";
 
 @Injectable({ scope: Scope.REQUEST })
 export class ProfilesDataloaderService {
   constructor(private readonly prisma: PrismaService) {}
+
+  public readonly byId = createByIdLoader((ids) =>
+    this.prisma.profile.findMany({ where: { id: { in: [...ids] } } }),
+  );
 
   public readonly skills = createGroupedLoader(
     (ids) =>

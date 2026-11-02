@@ -2,10 +2,14 @@ import { Args, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql
 import { PrismaService } from '@/prisma/prisma.service';
 import { Profile } from '@/profiles/profile.model';
 import { Skill } from '@/skills/skill.model';
+import { SkillsDataloaderService } from '@/skills/skills-dataloader.service';
 
 @Resolver(() => Skill)
 export class SkillsResolver {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly dataloader: SkillsDataloaderService,
+  ) {}
 
   @Query(() => [Skill])
   skills() {
@@ -19,9 +23,6 @@ export class SkillsResolver {
 
   @ResolveField(() => [Profile])
   profiles(@Parent() skill: Skill) {
-    return this.prisma.profile.findMany({
-      where: { skills: { some: { skillId: skill.id } } },
-      orderBy: { id: 'asc' },
-    });
+    return this.dataloader.profiles.load(skill.id);
   }
 }
