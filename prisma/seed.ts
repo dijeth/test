@@ -1,8 +1,8 @@
-import 'dotenv/config';
 import { faker } from "@faker-js/faker";
-import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '@/generated/prisma/client';
-import { validateEnv } from '@/config/env.schema';
+import { PrismaPg } from "@prisma/adapter-pg";
+import "dotenv/config";
+import { validateEnv } from "../src/config/env.schema";
+import { PrismaClient } from "../src/generated/prisma/client";
 
 const config = validateEnv(process.env);
 const prisma = new PrismaClient({
