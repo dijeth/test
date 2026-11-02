@@ -1,6 +1,9 @@
 import type { CompanyProfile, Project } from "@/generated/prisma/client";
 import { PrismaService } from "@/prisma/prisma.service";
-import { createByIdLoader, createGroupedLoader } from "@/utils/dataloader-fabric";
+import {
+  createByIdLoader,
+  createGroupedLoader,
+} from "@/utils/dataloader-fabric";
 import { Injectable, Scope } from "@nestjs/common";
 
 @Injectable({ scope: Scope.REQUEST })
@@ -13,15 +16,13 @@ export class ProfilesDataloaderService {
 
   public readonly skills = createGroupedLoader(
     (ids) =>
-      this.prisma.profile.findMany({
-        where: { id: { in: [...ids] } },
-        select: {
-          id: true,
-          skills: { select: { skill: true }, orderBy: { skillId: "asc" } },
-        },
+      this.prisma.profileSkill.findMany({
+        where: { profileId: { in: [...ids] } },
+        include: { skill: true },
+        orderBy: { skillId: "asc" },
       }),
-    (row) => row.id,
-    (row) => row,
+    (row) => row.profileId,
+    (row) => row.skill,
   );
 
   public readonly personalAccounts = createGroupedLoader(
