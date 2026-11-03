@@ -4,6 +4,12 @@ generator client {
   moduleFormat = "cjs"
 }
 
+generator erd {
+  provider                   = "prisma-erd-generator"
+  output                     = "../ERD.md"
+  includeRelationFromFields = true
+}
+
 datasource db {
   provider = "sqlite"
 }

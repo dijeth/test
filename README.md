@@ -11,6 +11,14 @@
 
 Для упрощения контроля количества SQL-запросов, выполняемых в рамках одного GraphQL-запроса, добавлен небольшой сервисный класс [`PrismaQueryCounter`](src/prisma/prisma-query-counter.ts), работающий на базе `AsyncLocalStorage` из Node.js. Инициализация нового асинхронного контекста происходит в middleware NestJS.
 
+## Итоговый поток данных:
+
+`Запрос → GraphQL Resolver → request-scoped DataLoader-сервис → Prisma → SQLite`
+
+## Схема базы данных
+
+ER-диаграмма доступна в [`ERD.md`](ERD.md). Источник истины — Prisma-схема [`prisma/schema.prisma`](prisma/schema.prisma).
+
 ## Сигнатуры фабрик DataLoader
 
 Из [`src/utils/dataloader-fabric.ts`](src/utils/dataloader-fabric.ts):
@@ -43,7 +51,3 @@ export class ProfilesDataloaderService {
   public readonly projects = createGroupedLoader(...);
 }
 ```
-
-Итоговый поток данных:
-
-`Запрос → GraphQL Resolver → request-scoped DataLoader-сервис → Prisma → SQLite`
